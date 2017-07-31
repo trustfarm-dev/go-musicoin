@@ -23,34 +23,25 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core"
 	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/core/vm"
 	"github.com/ethereum/go-ethereum/ethdb"
+	"github.com/ethereum/go-ethereum/params"
 )
 
 func TestMipmapUpgrade(t *testing.T) {
 	db, _ := ethdb.NewMemDatabase()
 	addr := common.BytesToAddress([]byte("jeff"))
-	genesis := core.WriteGenesisBlockForTesting(db)
+	genesis := new(core.Genesis).MustCommit(db)
 
-	chain, receipts := core.GenerateChain(nil, genesis, db, 10, func(i int, gen *core.BlockGen) {
-		var receipts types.Receipts
+	chain, receipts := core.GenerateChain(params.TestChainConfig, genesis, db, 10, func(i int, gen *core.BlockGen) {
 		switch i {
 		case 1:
 			receipt := types.NewReceipt(nil, new(big.Int))
-			receipt.Logs = vm.Logs{&vm.Log{Address: addr}}
+			receipt.Logs = []*types.Log{{Address: addr}}
 			gen.AddUncheckedReceipt(receipt)
-			receipts = types.Receipts{receipt}
 		case 2:
 			receipt := types.NewReceipt(nil, new(big.Int))
-			receipt.Logs = vm.Logs{&vm.Log{Address: addr}}
+			receipt.Logs = []*types.Log{{Address: addr}}
 			gen.AddUncheckedReceipt(receipt)
-			receipts = types.Receipts{receipt}
-		}
-
-		// store the receipts
-		err := core.WriteReceipts(db, receipts)
-		if err != nil {
-			t.Fatal(err)
 		}
 	})
 	for i, block := range chain {
@@ -61,7 +52,7 @@ func TestMipmapUpgrade(t *testing.T) {
 		if err := core.WriteHeadBlockHash(db, block.Hash()); err != nil {
 			t.Fatalf("failed to insert block number: %v", err)
 		}
-		if err := core.WriteBlockReceipts(db, block.Hash(), receipts[i]); err != nil {
+		if err := core.WriteBlockReceipts(db, block.Hash(), block.NumberU64(), receipts[i]); err != nil {
 			t.Fatal("error writing block receipts:", err)
 		}
 	}

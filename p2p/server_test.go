@@ -31,8 +31,7 @@ import (
 )
 
 func init() {
-	// glog.SetV(6)
-	// glog.SetToStderr(true)
+	// log.Root().SetHandler(log.LvlFilterHandler(log.LvlError, log.StreamHandler(os.Stderr, log.TerminalFormat(false))))
 }
 
 type testTransport struct {
@@ -300,6 +299,8 @@ func (tg taskgen) taskDone(t task, now time.Time) {
 	tg.doneFunc(t)
 }
 func (tg taskgen) addStatic(*discover.Node) {
+}
+func (tg taskgen) removeStatic(*discover.Node) {
 }
 
 type testTask struct {

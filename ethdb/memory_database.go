@@ -45,13 +45,6 @@ func (db *MemDatabase) Put(key []byte, value []byte) error {
 	return nil
 }
 
-func (db *MemDatabase) Set(key []byte, value []byte) {
-	db.lock.Lock()
-	defer db.lock.Unlock()
-
-	db.Put(key, value)
-}
-
 func (db *MemDatabase) Get(key []byte) ([]byte, error) {
 	db.lock.RLock()
 	defer db.lock.RUnlock()
@@ -67,7 +60,7 @@ func (db *MemDatabase) Keys() [][]byte {
 	defer db.lock.RUnlock()
 
 	keys := [][]byte{}
-	for key, _ := range db.db {
+	for key := range db.db {
 		keys = append(keys, []byte(key))
 	}
 	return keys
