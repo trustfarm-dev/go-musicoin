@@ -110,7 +110,7 @@ type statusData struct {
 	CurrentBlock    common.Hash
 	GenesisBlock    common.Hash
 }
-
+  
 // newBlockHashesData is the network packet for the block announcements.
 type newBlockHashesData []struct {
 	Hash   common.Hash // Hash of one particular block being announced
