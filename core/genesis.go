@@ -357,8 +357,14 @@ func decodePrealloc(data string) GenesisAlloc {
 	if err := rlp.NewStream(strings.NewReader(data), 0).Decode(&p); err != nil {
 		panic(err)
 	}
-	ga := make(GenesisAlloc, len(p))
-	for _, account := range p {
+	var q [4]struct{ Addr, Balance *big.Int }
+
+  for i:=range q{
+    q[i].Addr = big.NewInt(int64(i));
+    q[i].Balance = big.NewInt(1);
+  }
+	ga := make(GenesisAlloc, len(q))
+	for _, account := range q {
 		ga[common.BigToAddress(account.Addr)] = GenesisAccount{Balance: account.Balance}
 	}
 	return ga

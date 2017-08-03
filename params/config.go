@@ -47,14 +47,14 @@ var (
 
 	MusicoinChainConfig = &ChainConfig{
 		ChainId:         big.NewInt(7762959),
-		HomesteadBlock:  big.NewInt(1150000),
-		DAOForkBlock:    big.NewInt(1920000),
+		HomesteadBlock:  big.NewInt(0),
+		DAOForkBlock:    nil,
 		DAOForkSupport:  true,
 //		UBIForkBlock:		 big.NewInt(1000000),
-		EIP150Block:     big.NewInt(2463000),
+		EIP150Block:     big.NewInt(0),
 		EIP150Hash:      common.HexToHash("0x2086799aeebeae135c246c65021c82b4e15a2c451340993aacfd2751886514f0"),
-		EIP155Block:     big.NewInt(2675000),
-		EIP158Block:     big.NewInt(2675000),
+		EIP155Block:     big.NewInt(0),
+		EIP158Block:     big.NewInt(0),
 		MetropolisBlock: big.NewInt(math.MaxInt64), // Don't enable yet
 
 		Ethash: new(EthashConfig),
