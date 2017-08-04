@@ -318,6 +318,7 @@ func DefaultGenesisBlock() *Genesis {
 		Timestamp:	0,
 		Mixhash:		common.HexToHash("0x00000000000000000000000000000000000000647572616c65787365646c6578"),
 		Alloc:      decodePrealloc(devAllocData),
+		ParentHash: common.HexToHash("0x0000000000000000000000000000000000000000000000000000000000000000"),
 	}
 }
 //
