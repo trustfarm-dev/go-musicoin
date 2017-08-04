@@ -307,12 +307,14 @@ func GenesisBlockForTesting(db ethdb.Database, addr common.Address, balance *big
 }
 
 // DefaultGenesisBlock returns the Ethereum main net genesis block.
+// Set to Musicoin spec
 func DefaultGenesisBlock() *Genesis {
 	return &Genesis{
 		Config:     params.MusicoinChainConfig,
 		Nonce:      42,
 		GasLimit:   8000000,
 		Difficulty: big.NewInt(4000000),
+		Mixhash:		common.HexToHash("0x00000000000000000000000000000000000000647572616c65787365646c6578"),
 		Alloc:      decodePrealloc(devAllocData),
 	}
 }
@@ -357,6 +359,7 @@ func decodePrealloc(data string) GenesisAlloc {
 	if err := rlp.NewStream(strings.NewReader(data), 0).Decode(&p); err != nil {
 		panic(err)
 	}
+	// construct an allocation for Musicoin
 	var q [4]struct{ Addr, Balance *big.Int }
 
   for i:=range q{
