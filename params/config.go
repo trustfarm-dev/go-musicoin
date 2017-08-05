@@ -47,7 +47,7 @@ var (
 
 	MusicoinChainConfig = &ChainConfig{
 		ChainId:         big.NewInt(7762959),
-		HomesteadBlock:  big.NewInt(0),
+		HomesteadBlock:  big.NewInt(1000000),
 		DAOForkBlock:    nil,
 		DAOForkSupport:  true,
 //		UBIForkBlock:		 big.NewInt(1000000),
