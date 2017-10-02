@@ -120,8 +120,8 @@ func ApplyTransaction(config *ChainConfig, bc *BlockChain, gp *GasPool, statedb 
 func AccumulateRewards(statedb *state.StateDB, header *types.Header, uncles []*types.Header) {
 	reward := new(big.Int).Set(BlockReward)
 
-	if header.Number.Cmp(big.NewInt(1200000)) > 0 {
-		reward := new(big.Int).Set(NewBlockReward)
+	if header.Number.Cmp(big.NewInt(1200)) > 0 {
+		reward = new(big.Int).Set(NewBlockReward)
 	}
 
 	r := new(big.Int)
