@@ -1,4 +1,5 @@
-// Copyright 2014 The go-ethereum Authors
+// Copyright 2014 The go-ethereum Authors,
+// Copyright 2017 go-musicoin Devs and supporters,
 // This file is part of go-ethereum.
 //
 // go-ethereum is free software: you can redistribute it and/or modify
@@ -140,7 +141,7 @@ func init() {
 	// Initialize the CLI app and start GMC
 	app.Action = gmc
 	app.HideVersion = true // we have a command to print the version
-	app.Copyright = "Copyright 2013-2017 The go-ethereum Authors"
+	app.Copyright = "Copyright 2013-2017 The go-ethereum/go-musicoin Authors, Under GPL"
 	app.Commands = []cli.Command{
 		// See chaincmd.go:
 		initCommand,
